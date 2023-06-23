@@ -1,6 +1,13 @@
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import {
+	getFirestore,
+	collection,
+	query,
+	addDoc,
+	deleteDoc,
+	doc
+} from 'firebase/firestore'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
 const firebaseConfig = {
@@ -15,3 +22,17 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 export const auth = getAuth(app)
+
+export async function addFornecedor(nome: string, email: string) {
+	await addDoc(collection(db, 'fornecedores'), {
+		nome,
+		email,
+		createdAt: Date.now()
+	})
+	console.log(`Fornecedor adicionado: ${nome} - ${email}`)
+}
+
+export async function delFornecedor(id: string) {
+	await deleteDoc(doc(db, 'fornecedores', id))
+	console.log(`Fornecedor deletado: ${id}`)
+}

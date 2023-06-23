@@ -1,7 +1,7 @@
 import { useAuth } from '@/AuthContext'
 import React from 'react'
 
-function Home({}: Props) {
+function Home() {
 	const { currentUser } = useAuth()
 
 	return (
