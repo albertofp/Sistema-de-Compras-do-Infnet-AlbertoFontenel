@@ -1,9 +1,5 @@
 import './App.css'
 
 export default function App() {
-  return (
-    <main>
-      React ⚛️ + Vite ⚡ + Replit 🌀
-    </main>
-  )
+	return <main className='bg-slate-300'>React ⚛️ + Vite ⚡ + Replit 🌀</main>
 }
