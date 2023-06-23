@@ -105,7 +105,6 @@ function Contatos() {
 			</form>
 			<div className='flex gap-4 flex-wrap'>
 				{contatos.map((contato) => {
-					console.log(`Empresa: ${contato?.empresa}`)
 					return (
 						<div
 							className='flex justify-between bg-slate-400 rounded-sm p-4 w-52 min-w-fit gap-4'
