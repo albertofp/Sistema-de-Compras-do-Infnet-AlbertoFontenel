@@ -20,6 +20,6 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["src", "postcss.config.cjs"]
+	"include": ["src", "postcss.config.cjs", "src/routes.ts"]
 	//"references": [{ "path": "./tsconfig.json" }]
 }
