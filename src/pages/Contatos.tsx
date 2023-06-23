@@ -34,7 +34,12 @@ function Contatos() {
 
 	async function onSubmit(formValues: FormData, e: any) {
 		e.preventDefault()
-		await addContato(formValues.nome, formValues.email, formValues.phone)
+		await addContato(
+			formValues.nome,
+			formValues.email,
+			formValues.phone,
+			formValues.empresa
+		)
 		reset()
 	}
 
@@ -100,13 +105,17 @@ function Contatos() {
 			</form>
 			<div className='flex gap-4 flex-wrap'>
 				{contatos.map((contato) => {
+					console.log(`Empresa: ${contato?.empresa}`)
 					return (
 						<div
-							className='flex justify-between bg-slate-400 rounded-sm p-4 h-20 w-52 min-w-fit min-h-fit gap-4'
+							className='flex justify-between bg-slate-400 rounded-sm p-4 w-52 min-w-fit gap-4'
 							key={contato.id}
 						>
-							<div className='flex-col items-center justify-center '>
-								<h3 className='text-lg'>{contato?.nome}</h3>
+							<div className='flex-col items-center justify-center'>
+								<h3 className='text-lg font-bold text-slate-700'>
+									{contato?.nome}
+								</h3>
+								<h4 className='text-md'>{contato?.empresa}</h4>
 								<h4 className='text-md'>{contato?.email}</h4>
 								<h4 className='text-md'>{contato?.phone}</h4>
 							</div>

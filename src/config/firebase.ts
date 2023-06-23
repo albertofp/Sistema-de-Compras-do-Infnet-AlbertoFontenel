@@ -39,14 +39,20 @@ export async function delFornecedor(id: string) {
 	console.log(`Fornecedor deletado: ${id}`)
 }
 
-export async function addContato(nome: string, email: string, phone: string) {
+export async function addContato(
+	nome: string,
+	email: string,
+	phone: string,
+	empresa: string
+) {
 	await addDoc(collection(db, 'contatos'), {
 		nome,
 		email,
 		phone,
+		empresa,
 		createdAt: Date.now()
 	})
-	console.log(`Contato adicionado: ${nome} - ${email} - ${phone}`)
+	console.log(`Contato adicionado: ${nome} - ${email} - ${phone} - ${empresa}`)
 }
 
 export async function delContato(id: string) {
