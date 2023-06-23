@@ -39,7 +39,7 @@ function Login() {
 	return (
 		<>
 			<form
-				className='bg-gray-100 rounded-lg p-8 flex flex-col w-full mt-10 md:mt-0'
+				className='bg-gray-100 rounded-lg p-8 flex flex-col max-w-lg w-full mt-10 md:mt-0'
 				onSubmit={handleSubmit(onSubmit)}
 			>
 				<h2 className='text-gray-900 text-lg font-medium title-font mb-5'>
