@@ -44,14 +44,14 @@ function Login() {
 			>
 				<h2 className='text-gray-900 text-lg font-medium title-font mb-5'>
 					<span
-						className={mode == 'signup' ? 'underline' : ''}
+						className={mode == 'signup' ? 'underline' : 'cursor-pointer'}
 						onClick={() => setMode('signup')}
 					>
 						Sign up
 					</span>
 					<span> / </span>
 					<span
-						className={mode == 'login' ? 'underline' : ''}
+						className={mode == 'login' ? 'underline' : 'cursor-pointer'}
 						onClick={() => setMode('login')}
 					>
 						Log in
