@@ -11,14 +11,19 @@ import {
 	onSnapshot
 } from 'firebase/firestore'
 
-// https://firebase.google.com/docs/web/setup#available-libraries
+
+/** 
+	Tive dificuldade em importar as .env no replit, resolvir comitar assim mesmo
+	Faz parte
+*/
+
 const firebaseConfig = {
-	apiKey: import.meta.env.VITE_FIREBASE,
+	apiKey: 'AIzaSyAk98rh5-xGiouo4mhu1u3aekJb9bEAZLw',
 	authDomain: 'web-react-at.firebaseapp.com',
 	projectId: 'web-react-at',
 	storageBucket: 'web-react-at.appspot.com',
-	messagingSenderId: import.meta.env.VITE_MESS_SENDER_ID,
-	appId: import.meta.env.VITE_APP_ID
+	messagingSenderId: '1:860983954780:web:fc72a8ae84e2c914c54599',
+	appId: '860983954780'
 }
 
 const app = initializeApp(firebaseConfig)
