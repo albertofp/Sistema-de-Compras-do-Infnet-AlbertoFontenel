@@ -40,7 +40,7 @@ export async function delFornecedor(id: string) {
 }
 
 export async function addContato(nome: string, email: string, phone: string) {
-	await addDoc(collection(db, 'fornecedores'), {
+	await addDoc(collection(db, 'contatos'), {
 		nome,
 		email,
 		phone,
