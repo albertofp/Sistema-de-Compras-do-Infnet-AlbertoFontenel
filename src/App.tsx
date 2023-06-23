@@ -9,10 +9,11 @@ import {
 	Route,
 	RootRoute
 } from '@tanstack/router'
-import Contatos from './pages/Contatos'
+import contatos from './pages/Contatos'
 import Fornecedores from './pages/Fornecedores'
 import Root from './pages/Root'
 import Home from './pages/Home'
+import Error from './pages/Error'
 
 const rootRoute = new RootRoute({
 	component: Root
@@ -33,12 +34,19 @@ const fornecedoresRoute = new Route({
 const contatosRoute = new Route({
 	getParentRoute: () => rootRoute,
 	path: '/contatos',
-	component: Contatos
+	component: contatos
+})
+
+const errorRoute = new Route({
+	getParentRoute: () => rootRoute,
+	path: '*',
+	component: Error
 })
 const routeTree = rootRoute.addChildren([
 	homeRoute,
 	fornecedoresRoute,
-	contatosRoute
+	contatosRoute,
+	errorRoute
 ])
 const router = new Router({ routeTree })
 declare module '@tanstack/router' {

@@ -36,3 +36,18 @@ export async function delFornecedor(id: string) {
 	await deleteDoc(doc(db, 'fornecedores', id))
 	console.log(`Fornecedor deletado: ${id}`)
 }
+
+export async function addContato(nome: string, email: string, phone: string) {
+	await addDoc(collection(db, 'fornecedores'), {
+		nome,
+		email,
+		phone,
+		createdAt: Date.now()
+	})
+	console.log(`Contato adicionado: ${nome} - ${email} - ${phone}`)
+}
+
+export async function delContato(id: string) {
+	await deleteDoc(doc(db, 'contatos', id))
+	console.log(`Contato deletado: ${id}`)
+}
