@@ -1,13 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import { addContato, db, delContato } from '@/config/firebase'
-import { useAuth } from '@/AuthContext'
+import { useState, useEffect } from 'react'
+import { addContato, db, delContato, getDataSnapshot } from '@/config/firebase'
 import { DocumentData } from '@firebase/firestore-types'
-import {
-	QuerySnapshot,
-	collection,
-	onSnapshot,
-	query
-} from 'firebase/firestore'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -17,15 +10,7 @@ function Contatos() {
 	const [contatos, setContatos] = useState<[] | DocumentData[]>([])
 
 	useEffect(() => {
-		const getContatos = query(collection(db, 'contatos'))
-		const unsubscribe = onSnapshot(getContatos, (QuerySnapshot) => {
-			let contatosArray: DocumentData[] = []
-			QuerySnapshot.forEach((document: DocumentData) => {
-				contatosArray.push({ ...document.data(), id: document.id })
-			})
-			setContatos(contatosArray)
-		})
-
+		const unsubscribe = getDataSnapshot('contatos', setContatos)
 		return () => unsubscribe()
 	}, [])
 
@@ -116,7 +101,10 @@ function Contatos() {
 			<div className='flex gap-4 flex-wrap'>
 				{contatos.map((contato) => {
 					return (
-						<div className='flex justify-between bg-slate-400 rounded-sm p-4 h-20 w-52 min-w-fit min-h-fit gap-4'>
+						<div
+							className='flex justify-between bg-slate-400 rounded-sm p-4 h-20 w-52 min-w-fit min-h-fit gap-4'
+							key={contato.id}
+						>
 							<div className='flex-col items-center justify-center '>
 								<h3 className='text-lg'>{contato?.nome}</h3>
 								<h4 className='text-md'>{contato?.email}</h4>

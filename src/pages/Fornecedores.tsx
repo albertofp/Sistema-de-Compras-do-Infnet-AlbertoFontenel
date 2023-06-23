@@ -1,13 +1,10 @@
-import React, { useState, useEffect } from 'react'
-import { addFornecedor, db, delFornecedor } from '@/config/firebase'
-import { useAuth } from '@/AuthContext'
-import { DocumentData } from '@firebase/firestore-types'
+import { useState, useEffect } from 'react'
 import {
-	QuerySnapshot,
-	collection,
-	onSnapshot,
-	query
-} from 'firebase/firestore'
+	addFornecedor,
+	delFornecedor,
+	getDataSnapshot
+} from '@/config/firebase'
+import { DocumentData } from '@firebase/firestore-types'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
@@ -17,16 +14,7 @@ function Fornecedores() {
 	const [fornecedores, setFornecedores] = useState<[] | DocumentData[]>([])
 
 	useEffect(() => {
-		console.log('fornecedores, render')
-		const getFornecedores = query(collection(db, 'fornecedores'))
-		const unsubscribe = onSnapshot(getFornecedores, (QuerySnapshot) => {
-			let fornecedoresArray: DocumentData[] = []
-			QuerySnapshot.forEach((document: DocumentData) => {
-				fornecedoresArray.push({ ...document.data(), id: document.id })
-			})
-			setFornecedores(fornecedoresArray)
-		})
-
+		const unsubscribe = getDataSnapshot('fornecedores', setFornecedores)
 		return () => unsubscribe()
 	}, [])
 
@@ -91,12 +79,18 @@ function Fornecedores() {
 			<div className='flex gap-4 flex-wrap'>
 				{fornecedores.map((fornecedor) => {
 					return (
-						<div className='flex justify-between bg-slate-400 rounded-sm p-4 h-20 w-52 min-w-fit min-h-fit gap-4'>
+						<div
+							className='flex justify-between bg-slate-400 rounded-sm p-4 h-20 w-52 min-w-fit min-h-fit gap-4'
+							key={fornecedor.id}
+						>
 							<div className='flex-col items-center justify-center '>
 								<h3 className='text-lg'>{fornecedor?.nome}</h3>
 								<h4 className='text-md'>{fornecedor?.email}</h4>
 							</div>
-							<button className='p-2 bg-red-300 rounded-sm' onClick={() =>  delFornecedor(fornecedor.id)}>
+							<button
+								className='p-2 bg-red-300 rounded-sm'
+								onClick={() => delFornecedor(fornecedor.id)}
+							>
 								<Trash2 />
 							</button>
 						</div>

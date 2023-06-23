@@ -1,3 +1,4 @@
+import { DocumentData } from '@firebase/firestore-types'
 import { initializeApp } from 'firebase/app'
 import { getAuth } from 'firebase/auth'
 import {
@@ -6,7 +7,8 @@ import {
 	query,
 	addDoc,
 	deleteDoc,
-	doc
+	doc,
+	onSnapshot
 } from 'firebase/firestore'
 
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -50,4 +52,20 @@ export async function addContato(nome: string, email: string, phone: string) {
 export async function delContato(id: string) {
 	await deleteDoc(doc(db, 'contatos', id))
 	console.log(`Contato deletado: ${id}`)
+}
+
+export function getDataSnapshot(
+	path: string,
+	setter: (value: React.SetStateAction<[] | DocumentData[]>) => void
+) {
+	const getData = query(collection(db, path))
+	const unsubscribe = onSnapshot(getData, (QuerySnapshot) => {
+		let dataArray: DocumentData[] = []
+		QuerySnapshot.forEach((document: DocumentData) => {
+			dataArray.push({ ...document.data(), id: document.id })
+		})
+		setter(dataArray)
+	})
+
+	return unsubscribe
 }
